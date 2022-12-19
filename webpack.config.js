@@ -1,0 +1,25 @@
+// Note this only includes basic configuration for development mode.
+// For a more comprehensive configuration check:
+// https://github.com/fable-compiler/webpack-config-template
+
+var path = require("path");
+
+let config = {
+    mode: "development",
+    entry: "./src/App.fs.js",
+    output: {
+        path: path.join(__dirname, "./public"),
+        filename: "bundle.js",
+    },
+    devServer: {
+        static: "./public",
+        port: 8080,
+    }
+}
+
+module.exports = (env, argv) => {
+    if (argv.mode == 'production'){
+        config.mode = argv.mode
+    }
+    return config;
+}
