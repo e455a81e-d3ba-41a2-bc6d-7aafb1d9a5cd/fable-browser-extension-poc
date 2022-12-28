@@ -3,7 +3,6 @@ module Popup
 open App.Manifest
 open Browser.Dom
 open Fable.Core.JsInterop
-open Browser
 
 let hidePage = 
     """body > :not(.beastify-image) {
@@ -30,30 +29,6 @@ let getActiveTab f =
     browser.tabs.query(tabQuery)
     |> Promise.map f 
     |> Promise.catchEnd raiseError
-
-
-
-type MyCssDetails(_css) =
-    interface CssDetails with
-        member val css = _css with get, set
-        member val files = [||] with get, set
-        member val origin = "" with get, set
-        member val target = null with get, set
-
-
-type MyScriptDetails(_files, tabId) =
-    let mutable _target = 
-        let injectionTarget = browser.scripting.InjectionTarget.Create()
-        injectionTarget.tabId <- tabId
-        injectionTarget
-
-    interface ScriptDetails with 
-        member val args = [||] with get, set
-        member val files = _files with get, set
-        member val func = null with get, set
-        member val injectImmediately = true with get, set
-        member val target = _target with get, set
-
 
 
 let addClickEventListener =

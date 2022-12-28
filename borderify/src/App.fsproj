@@ -6,7 +6,7 @@
     <Compile Include="App.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.Core" Version="3.7.1" />
+    <PackageReference Include="Fable.Core" Version="4.0.0-theta-007" />
     <PackageReference Include="Fable.Browser.Dom" Version="2.10.1" />
     <PackageReference Include="Fable.Browser.Css" Version="2.2.0" />
   </ItemGroup>

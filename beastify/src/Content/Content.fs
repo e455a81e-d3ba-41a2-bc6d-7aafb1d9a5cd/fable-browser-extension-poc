@@ -1,7 +1,6 @@
 module Content
 
 open Browser.Dom
-open Browser.Css
 open App.Manifest
 open Fable.Core.JsInterop
 

@@ -4565,15 +4565,9 @@ var __webpack_exports__ = {};
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MyCssDetails": () => (/* binding */ MyCssDetails),
-/* harmony export */   "MyCssDetails$reflection": () => (/* binding */ MyCssDetails$reflection),
-/* harmony export */   "MyCssDetails_$ctor_Z721C83C5": () => (/* binding */ MyCssDetails_$ctor_Z721C83C5),
 /* harmony export */   "MyError": () => (/* binding */ MyError),
 /* harmony export */   "MyError$reflection": () => (/* binding */ MyError$reflection),
 /* harmony export */   "MyError__Equals_229D3F39": () => (/* binding */ MyError__Equals_229D3F39),
-/* harmony export */   "MyScriptDetails": () => (/* binding */ MyScriptDetails),
-/* harmony export */   "MyScriptDetails$reflection": () => (/* binding */ MyScriptDetails$reflection),
-/* harmony export */   "MyScriptDetails_$ctor_Z42C3C694": () => (/* binding */ MyScriptDetails_$ctor_Z42C3C694),
 /* harmony export */   "addClickEventListener": () => (/* binding */ addClickEventListener),
 /* harmony export */   "beastNameToUrl": () => (/* binding */ beastNameToUrl),
 /* harmony export */   "getActiveTab": () => (/* binding */ getActiveTab),
@@ -4656,115 +4650,6 @@ function getActiveTab(f) {
     void (pr_1.catch((e) => {
         raiseError(e);
     }));
-}
-
-class MyCssDetails {
-    constructor(_css) {
-        this["css@"] = _css;
-        this["files@"] = [];
-        this["origin@"] = "";
-        this["target@"] = (0,_fable_modules_fable_library_4_0_0_theta_018_Util_js__WEBPACK_IMPORTED_MODULE_2__.defaultOf)();
-    }
-    get css() {
-        const __ = this;
-        return __["css@"];
-    }
-    set css(v) {
-        const __ = this;
-        __["css@"] = v;
-    }
-    get files() {
-        const __ = this;
-        return __["files@"];
-    }
-    set files(v) {
-        const __ = this;
-        __["files@"] = v;
-    }
-    get origin() {
-        const __ = this;
-        return __["origin@"];
-    }
-    set origin(v) {
-        const __ = this;
-        __["origin@"] = v;
-    }
-    get target() {
-        const __ = this;
-        return __["target@"];
-    }
-    set target(v) {
-        const __ = this;
-        __["target@"] = v;
-    }
-}
-
-function MyCssDetails$reflection() {
-    return (0,_fable_modules_fable_library_4_0_0_theta_018_Reflection_js__WEBPACK_IMPORTED_MODULE_1__.class_type)("Popup.MyCssDetails", void 0, MyCssDetails);
-}
-
-function MyCssDetails_$ctor_Z721C83C5(_css) {
-    return new MyCssDetails(_css);
-}
-
-class MyScriptDetails {
-    constructor(_files, tabId) {
-        let injectionTarget;
-        this._target = ((injectionTarget = (new (chrome).scripting.InjectionTarget()), (injectionTarget.tabId = (tabId | 0), injectionTarget)));
-        this["args@"] = [];
-        this["files@"] = _files;
-        this["func@"] = (0,_fable_modules_fable_library_4_0_0_theta_018_Util_js__WEBPACK_IMPORTED_MODULE_2__.defaultOf)();
-        this["injectImmediately@"] = true;
-        this["target@"] = this._target;
-    }
-    get args() {
-        const __ = this;
-        return __["args@"];
-    }
-    set args(v) {
-        const __ = this;
-        __["args@"] = v;
-    }
-    get files() {
-        const __ = this;
-        return __["files@"];
-    }
-    set files(v) {
-        const __ = this;
-        __["files@"] = v;
-    }
-    get func() {
-        const __ = this;
-        return __["func@"];
-    }
-    set func(v) {
-        const __ = this;
-        __["func@"] = v;
-    }
-    get injectImmediately() {
-        const __ = this;
-        return __["injectImmediately@"];
-    }
-    set injectImmediately(v) {
-        const __ = this;
-        __["injectImmediately@"] = v;
-    }
-    get target() {
-        const __ = this;
-        return __["target@"];
-    }
-    set target(v) {
-        const __ = this;
-        __["target@"] = v;
-    }
-}
-
-function MyScriptDetails$reflection() {
-    return (0,_fable_modules_fable_library_4_0_0_theta_018_Reflection_js__WEBPACK_IMPORTED_MODULE_1__.class_type)("Popup.MyScriptDetails", void 0, MyScriptDetails);
-}
-
-function MyScriptDetails_$ctor_Z42C3C694(_files, tabId) {
-    return new MyScriptDetails(_files, tabId);
 }
 
 function addClickEventListener() {
