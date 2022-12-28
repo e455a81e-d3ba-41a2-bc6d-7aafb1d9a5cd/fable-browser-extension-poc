@@ -55,7 +55,7 @@ let addClickEventListener =
 getActiveTab (fun tabs ->
 
     let injectionTarget = {| tabId = tabs[0].id |}
-    let scriptDetails = {| files = [|"content.js"|]; target = injectionTarget |}
+    let scriptDetails = {| files = [|"content.bundle.js"|]; target = injectionTarget |}
 
     browser.scripting.executeScript(scriptDetails)
     |> Promise.map addClickEventListener

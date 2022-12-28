@@ -9,7 +9,7 @@ let config = {
     mode: "development",
     output: {
         path: path.join(__dirname, "./public"),
-        filename: "[name].js",
+        filename: "[name].bundle.js",
     }
 }
 
