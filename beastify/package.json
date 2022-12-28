@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "dotnet tool restore",
+    "build-popup": "dotnet fable src/Popup --run webpack --env entry=popup",
+    "build-content": "dotnet fable src/Content --run webpack --env entry=content",
+    "build-popup-release": "dotnet fable src/Popup --run webpack --env entry=popup --mode=production",
+    "build-content-release": "dotnet fable src/Content --run webpack --env entry=content --mode=production",
+    "build": "npm run build-popup && npm run build-content",
+    "build-release": "npm run build-popup-release && npm run build-content-release"
+  },
+  "dependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  }
+}
