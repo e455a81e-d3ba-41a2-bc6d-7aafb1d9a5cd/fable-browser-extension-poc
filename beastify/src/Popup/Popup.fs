@@ -34,13 +34,15 @@ let getActiveTab f =
 let addClickEventListener =
     fun () -> document.addEventListener("click", (fun e -> 
 
-        let (beast: string) = e.target?textContent
+        let beast: string = e.target?textContent
+
+        let cssDetails (tab: Tab) = 
+            let injectionTarget = {| tabId = tab.id |}
+            {| css = hidePage; target = injectionTarget |}
+
 
         let beastify (tabs: Tab[]) =
-            let injectionTarget = {| tabId = tabs[0].id |}
-            let cssDetails = {| css = hidePage; target = injectionTarget |}
-            let insertCssPromise= (browser.scripting.insertCSS(cssDetails))
-            insertCssPromise 
+            browser.scripting.insertCSS(cssDetails tabs[0]) 
             |> Promise.map (fun () -> 
                     let url = beastNameToUrl beast
                     browser.tabs.sendMessage(
@@ -49,7 +51,19 @@ let addClickEventListener =
                     )
             ) |> ignore
             ()
-        getActiveTab beastify
+
+        let reset (tabs: Tab[]) =
+            browser.scripting.removeCSS (cssDetails tabs[0])
+            |> Promise.map (fun () -> 
+                    browser.tabs.sendMessage(
+                        tabs[0].id,
+                        {| command = "reset" |}
+                    )
+            ) |> ignore
+
+        match e.target?``type``  with
+        | "reset" -> getActiveTab reset
+        | _ -> getActiveTab beastify
     ))
 
 getActiveTab (fun tabs ->

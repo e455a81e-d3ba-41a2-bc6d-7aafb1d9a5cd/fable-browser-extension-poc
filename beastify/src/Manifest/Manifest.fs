@@ -5,6 +5,7 @@ module Manifest =
     type Scripting = 
         abstract executeScript: obj -> JS.Promise<unit>
         abstract insertCSS: obj -> JS.Promise<unit>
+        abstract removeCSS: obj -> JS.Promise<unit>
 
     type Tab = 
         abstract id: int with get

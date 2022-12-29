@@ -3,9 +3,13 @@ module Content
 open Browser.Dom
 open App.Manifest
 open Fable.Core.JsInterop
+open Fable.Core.JS
+open Browser.Types
 
 let removeExistingBeasts =
-    ()
+    let existingBeasts = document.querySelectorAll(".beastify-image")
+    let array: Element[] = Constructors.Array.from(existingBeasts)
+    FSharp.Collections.Array.iter (fun (x: Element) -> x.remove() ) array |> ignore
 
 let insertBeast beastURL =
     removeExistingBeasts |> ignore

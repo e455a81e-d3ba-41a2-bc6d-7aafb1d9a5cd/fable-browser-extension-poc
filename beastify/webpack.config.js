@@ -5,7 +5,7 @@
 var path = require("path");
 
 let config = {
-    devtool: 'cheap-module-source-map',
+    devtool: 'cheap-module-source-map', // We can not use the default devtool because it uses 'eval()'. Manifest 3 disallows unsafe-eval.
     mode: "development",
     output: {
         path: path.join(__dirname, "./public"),
