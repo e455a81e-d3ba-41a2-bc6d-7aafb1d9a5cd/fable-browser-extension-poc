@@ -1,7 +1,7 @@
 module Content
 
 open Browser.Dom
-open App.Manifest
+open Manifest.Chrome
 open Fable.Core.JsInterop
 open Fable.Core.JS
 open Browser.Types
@@ -19,9 +19,13 @@ let insertBeast beastURL =
     image?style?height <- "100vh"
     document.body.appendChild(image) |> ignore
 
-browser.runtime.onMessage.addListener (fun message ->
-    match (message?command ) with
-    | "beastify" -> insertBeast message?beastUrl
-    | "reset" -> removeExistingBeasts
-    | _ -> ()
-)
+if (window?eventListenerAdded <> true) then
+    window?eventListenerAdded <- true
+    runtime.onMessage.addListener (fun message ->
+        match (message?command ) with
+        | "beastify" -> insertBeast message?beastUrl
+        | "reset" -> removeExistingBeasts
+        | _ -> ()
+    )
+else
+    ()

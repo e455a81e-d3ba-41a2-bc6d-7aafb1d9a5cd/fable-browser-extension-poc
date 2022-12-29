@@ -3,6 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Filewriter.fs" />
+    <Compile Include="Filesystem.fs" />
     <Compile Include="Manifest.fs" />
   </ItemGroup>
   <ItemGroup>

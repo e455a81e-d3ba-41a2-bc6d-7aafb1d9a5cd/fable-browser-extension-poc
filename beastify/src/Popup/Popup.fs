@@ -1,8 +1,11 @@
 module Popup
 
-open App.Manifest
+open Manifest
 open Browser.Dom
 open Fable.Core.JsInterop
+open Manifest.Chrome.Tabs
+open Manifest.Chrome.Scripting
+open Manifest.Chrome
 
 let hidePage = 
     """body > :not(.beastify-image) {
@@ -18,15 +21,15 @@ let raiseError e =
 
 let beastNameToUrl beastName: string =
     match beastName with
-    | "Frog" -> browser.runtime.getURL("beasts/frog.jpg")
-    | "Snake" -> browser.runtime.getURL("beasts/snake.jpg")
-    | "Turtle" -> browser.runtime.getURL("beasts/turtle.jpg")
+    | "Frog" -> runtime.getURL("beasts/frog.jpg")
+    | "Snake" -> runtime.getURL("beasts/snake.jpg")
+    | "Turtle" -> runtime.getURL("beasts/turtle.jpg")
     | _ -> MyError "No such beast!" |> raise
 
 
 let getActiveTab f =
-    let tabQuery = {| active = true; currentWindow = true|}
-    browser.tabs.query(tabQuery)
+    let tabQuery: QueryInfo = !!{| active = true; currentWindow = true|}
+    tabs.query(tabQuery)
     |> Promise.map f 
     |> Promise.catchEnd raiseError
 
@@ -36,27 +39,27 @@ let addClickEventListener =
 
         let beast: string = e.target?textContent
 
-        let cssDetails (tab: Tab) = 
-            let injectionTarget = {| tabId = tab.id |}
-            {| css = hidePage; target = injectionTarget |}
+        let cssDetails (tab: Tab) : CSSInjection  = 
+            let injectionTarget: InjectionTarget = !!{| tabId = tab.id |> Option.defaultValue 0|}
+            !!{| css = hidePage; target = injectionTarget |}
 
 
-        let beastify (tabs: Tab[]) =
-            browser.scripting.insertCSS(cssDetails tabs[0]) 
+        let beastify (tabArray: ResizeArray<Tab>) =
+            scripting.insertCSS(cssDetails tabArray[0]) 
             |> Promise.map (fun () -> 
                     let url = beastNameToUrl beast
-                    browser.tabs.sendMessage(
-                        tabs[0].id,
+                    tabs.sendMessage(
+                        tabArray[0].id |> Option.defaultValue 0,
                         {| command = "beastify"; beastUrl = url |}
                     )
             ) |> ignore
             ()
 
-        let reset (tabs: Tab[]) =
-            browser.scripting.removeCSS (cssDetails tabs[0])
+        let reset (tabArray: ResizeArray<Tab>) =
+            scripting.removeCSS (cssDetails tabArray[0])
             |> Promise.map (fun () -> 
-                    browser.tabs.sendMessage(
-                        tabs[0].id,
+                    tabs.sendMessage(
+                        tabArray[0].id |> Option.defaultValue 0,
                         {| command = "reset" |}
                     )
             ) |> ignore
@@ -69,9 +72,9 @@ let addClickEventListener =
 getActiveTab (fun tabs ->
 
     let injectionTarget = {| tabId = tabs[0].id |}
-    let scriptDetails = {| files = [|"content.bundle.js"|]; target = injectionTarget |}
+    let scriptDetails: ScriptInjection<obj, obj> = !!{| files = [|"content.bundle.js"|]; target = injectionTarget |}
 
-    browser.scripting.executeScript(scriptDetails)
-    |> Promise.map addClickEventListener
+    scripting.executeScript(scriptDetails)
+    |> Promise.map (fun _ -> addClickEventListener())
     |> Promise.catchEnd raiseError
 )
